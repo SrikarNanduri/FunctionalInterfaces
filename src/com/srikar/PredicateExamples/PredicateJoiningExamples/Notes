@@ -1,0 +1,5 @@
+It’s possible to join predicates into a single predicate by using the following methods.
+  and()
+  or()
+  negate()
+  these are exactly same as logical AND ,OR complement operators
