@@ -4,7 +4,7 @@ Functional Interfaces examples
 
 Interfaces include
 
-Predicate
-Function 
+Predicate, 
+Function,  
 Consumer and 
 Supplier
