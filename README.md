@@ -5,6 +5,6 @@ Functional Interfaces examples
 Interfaces include
 
 Predicate, 
-Function,  
+Function, 
 Consumer and 
 Supplier
