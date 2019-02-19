@@ -1,0 +1,6 @@
+Just like Predicate Chaining and Function Chaining, Consumer Chaining is also possible.
+Consumer Functional Interface contains default method andThen().
+
+c1.andThen(c2).andThen(c3).accept(s)
+
+First Consumer c1 will be applied followed by c2 and c3.
