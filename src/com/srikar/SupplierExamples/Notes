@@ -1,0 +1,13 @@
+Sometimes our requirement is we have to get some value based on some operation like
+
+supply some data like some object or some collection etc
+
+For this type of requirements we go for Supplier. Supplier can be used to supply items (objects).
+
+Supplier won't take any input and it will always supply objects. Supplier Functional Interface contains only one method get().
+
+interface Supplier<R>  {
+      public R get();
+        }
+
+Supplier Functional interface does not contain any default and static methods.
