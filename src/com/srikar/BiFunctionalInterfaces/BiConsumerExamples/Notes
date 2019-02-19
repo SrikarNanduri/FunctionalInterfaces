@@ -1,0 +1,12 @@
+Normal Consumer can take only one input argument and perform required operation and won't return any result.
+
+But sometimes we need to accept 2 input values and perform required operation and not required to return any result. Then we go for BiConsumer.
+
+BiConsumer is exactly same as Consumer except that it will take 2 input arguments.
+
+ interface BiConsumer<T,U> {
+
+      public void accept(T t,U u);     //default method andThen()
+
+       }
+

@@ -1,0 +1,9 @@
+Function can take only one input argument and perform required operation and returns the result. The result need not be boolean type.
+
+Sometimes we need to accept 2 input values and perform required operation and should return the result. Then we go for BiFunction.
+
+BiFunction is exactly same as funtion except that it will take 2 input arguments.
+
+ interface BiFunction<T,U,R>  {
+          public R apply(T t,U u);        //default method andThen()
+        }

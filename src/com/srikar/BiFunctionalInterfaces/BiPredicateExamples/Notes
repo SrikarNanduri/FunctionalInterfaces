@@ -1,0 +1,10 @@
+Normal Predicate can take only one input argument and perform some conditional check.
+Sometimes our programming requires to take 2 input arguments and perform some conditional check, then we go for BiPredicate.
+
+BiPredicate is exactly same as Predicate except that it will take 2 input arguments.
+
+ interface BiPredicate<T1,T2>  {
+
+        public boolean test(T1 t1,T2 t2);    //remaining default methods: and(), or() , negate()
+
+    }

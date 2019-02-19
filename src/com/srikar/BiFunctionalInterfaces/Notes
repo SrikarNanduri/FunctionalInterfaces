@@ -1,0 +1,9 @@
+Need of Two-Argument is where (Bi) Functional Interfaces comes into picture.
+
+Normal Functional Interfaces (Predicate, Function and Consumer) can accept only one input argument.
+But sometimes our programming requirement is to accept two input arguments, then we should go for two-argument functional interfaces.
+The following functional interfaces can take 2 input arguments.
+
+1. BiPredicate
+2. BiFunction
+3. BiConsumer
