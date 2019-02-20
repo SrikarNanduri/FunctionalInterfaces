@@ -1,4 +1,4 @@
-package com.srikar.Streams;
+package com.srikar.Streams.IntermediateOperations;
 
 import java.util.ArrayList;
 import java.util.List;
