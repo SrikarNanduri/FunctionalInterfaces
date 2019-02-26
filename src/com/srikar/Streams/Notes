@@ -1,0 +1,88 @@
+As we’ve been discussing, stream operations are divided into intermediate and terminal operations.
+Intermediate operations such as filter() return a new stream on which further processing can be done.
+Terminal operations, such as forEach(), mark the stream as consumed, after which point it can no longer be used further.
+
+
+A stream pipeline consists of a stream source, followed by zero or more intermediate operations, and a terminal operation.
+
+Look at the image inside the folder for the typical structure of java 8 Streams Based Operations
+
+
+Source: Source is the source of data from which a stream is generated. It could be a collection on which stream() method has been invoked, it could be an array,
+it could be a Supplier instance generating infinite stream elements using the Stream.generate() method and so on.
+The source for your Stream’s elements will depend on your business/technical requirement but the key thing to note is that you need a source for the stream to ‘flow’.
+
+Intermediate Operations: Intermediate operations of Streams have particular characteristic common to all of them.
+Intermediate Operations are invoked on a Stream instance and after they finish their processing they give a Stream instance as output.
+Examples of commonly used intermediate operations include Stream.map(), Stream.filter(), Stream.limit() and so on.
+
+One way to look at the Stream operations would be to think of a Stream as an assembly line.
+There are the the raw materials(elements of stream) coming out from the source at one end.
+As the product(semi-processed data elements) being made moves forward, each intermediate workstation (or intermediate operation) keeps doing stuff on the product and keeps shaping the final product.
+
+At a high-level, the concept of an assembly line works well for assimilating the concept of stream operations.
+However, internally within Streams logic there is an important difference.
+Stream elements are not processed continuously as one would assume. On the contrary, actual processing doesn’t even start till a terminal operation(covered next) is invoked.
+Such a ‘lazy’ operation of Streams gives Java designers the ability to optimize and process Stream operation execution in a variety of ways.
+We will take a look at the lazy nature of Stream execution and couple of common optimizations in the next section.
+
+Terminal Operations: Terminal operations are responsible for giving the ‘final’ output for a Stream in operation, and in the process they terminate a Stream.
+Terminal Operations thus do not return a Stream as their output. Apart from returning a Stream, terminal operations can return any value, or even no value(void) such as in the case of forEach() method.
+Common examples of terminal values are findAny(), allMatch(), forEach() etc.
+
+Lazy execution of Streams and opportunity for optimizations:
+Lazy execution of Streams allow stream operations to be optimized by taking a high level view of the entire set of pipelined operations and then applying the optimization techniques to improve efficiency of execution.
+
+Let us first take an example to understand the lazy nature of stream execution. Take a look at the following code, and its output, involving a Stream of even integers. The below code prints the first 5 even integers starting from the number 0 –
+
+Stream.iterate(0, n -> n+2)
+.peek(num -> System.out,println("looking at:" + num))
+.limit(5)
+.forEach(System.out::Println);
+
+
+output:
+
+looking at: 0
+0
+looking at: 2
+2
+looking at: 4
+4
+looking at: 6
+6
+looking at: 8
+8
+
+
+
+In the above code and diagram, Stream.iterate() method generates an infinite number of even numbers starting from the initial value provided, i.e. 0. If Stream operations were not lazy and optimized, one would normally expected a large number of integers to be generated first using the Stream.iterate() method, which should have been ‘peeked’ at using Stream.peek() (another intermediate) operation. Finally, the Stream of elements would have been limited to just 5, and only first 5 of these huge list of numbers should have been printed using forEach() method.
+
+Instead, there are multiple optimizations at play here which make the above Stream efficient –
+
+Firstly, an important aspect to understand that the Stream execution, as I had mentioned earlier, is lazy. The actual execution of the Stream does not start till the terminal operation is encountered.
+So, one can have ‘n’ intermediate operations in a Stream pipeline, but the execution of these ‘n’ operations does not start unless the terminal operation (forEach() in our case) is invoked.
+
+Secondly, if you notice closely – only 5 even integers are generated, rather than a huge list. Lazy execution of Streams allows the implementing logic to ‘understand’ that there is a limit(5) in the sequence of operations,
+and hence, finally only 5 elements will be used. So, the Stream never generates more than 5 elements. This optimization is technically named as Short-Circuiting!
+
+Thirdly, each element is generated, peeked into, and printed as if these three operations were lined up as individual members of a single pass.
+In fact, we never specified the Stream operations in passes.
+The way we had defined the operations, first a large number of even integers(or 5 even integers if we consider short-circuiting) should have been generated which should have gotten printed in a bunch using the peek() method.
+Only then these 5 integers should have been printed, again in a bunch, using forEach().
+Rather, what we see is that the three intermediate operations generate() – peek() – println using forEach() have been logically joined together to constitute a single pass,
+i.e. they are executed in order for each of the individual integers generated.
+This joining together of operations in a single pass is an optimization technique known as loop fusion.
+
+Types of Intermediate Operations
+Intermediate Stream Operations can broadly be categorized into two categories based on whether they store their state, or reference to data from their earlier invocations, or not.
+Accordingly intermediate operations can be classified into stateful and stateless operations. Let us quickly take a look at the two types –
+
+Stateful Intermediate Operations: Stateful intermediate operations are those which maintain information from a previous invocation internally(aka state) to be used again in a future invocation of the method.
+Intermediate operations such as Stream.distinct(), which needs to remember(or store) the previous elements it encountered, have to store state information from previous passes.
+This state storage can become huge for instances of infinite streams and hence can potentially affect performance of the whole system. Another example of stateful intermediate operation
+is Streams.sorted() which requires to store elements in a temporary storage as it sorts them over multiple passes.
+
+Stateless Intermediate Operations: Stateless intermediate operations are the opposite of stateful and do not store any state across passes.
+This not only improves the performance of these operations, which include among others filter(), map(), findAny(), it also helps in executing the Stream operation invocations in parallel as there is no information to be shared,
+or any order to be maintained, between these invocations or passes.
