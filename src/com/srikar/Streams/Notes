@@ -56,7 +56,7 @@ looking at: 8
 
 
 
-In the above code and diagram, Stream.iterate() method generates an infinite number of even numbers starting from the initial value provided, i.e. 0. If Stream operations were not lazy and optimized, one would normally expected a large number of integers to be generated first using the Stream.iterate() method, which should have been ‘peeked’ at using Stream.peek() (another intermediate) operation. Finally, the Stream of elements would have been limited to just 5, and only first 5 of these huge list of numbers should have been printed using forEach() method.
+In the above code, Stream.iterate() method generates an infinite number of even numbers starting from the initial value provided, i.e. 0. If Stream operations were not lazy and optimized, one would normally expected a large number of integers to be generated first using the Stream.iterate() method, which should have been ‘peeked’ at using Stream.peek() (another intermediate) operation. Finally, the Stream of elements would have been limited to just 5, and only first 5 of these huge list of numbers should have been printed using forEach() method.
 
 Instead, there are multiple optimizations at play here which make the above Stream efficient –
 
