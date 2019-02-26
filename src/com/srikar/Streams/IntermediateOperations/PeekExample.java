@@ -1,7 +1,9 @@
 package com.srikar.Streams.IntermediateOperations;
 
 
-
+/**
+ * Created by Srikar on Feb, 2019
+ */
 
 /*
 
@@ -11,7 +13,6 @@ peek() can be useful in situations like this. Simply put, it performs the specif
 peek() is an intermediate operation:
 
 */
-
 
 import java.util.List;
 import java.util.stream.Collectors;
