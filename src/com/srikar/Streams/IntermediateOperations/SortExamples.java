@@ -19,6 +19,16 @@ import java.util.stream.Stream;
    We can, of course, do that manually, but that’s where the Supplier functional interface becomes really handy.
 */
 
+
+/*
+* sorted:
+    Let’s start with the sorted() operation – this sorts the stream elements based on the comparator passed we pass into it.
+
+    Note that short-circuiting will not be applied for sorted().
+
+    This means, in the example above, even if we had used findFirst() after the sorted(), the sorting of all the elements is done before applying the findFirst().
+    This happens because the operation cannot know what the first element is until the entire stream is sorted.
+ */
 public class SortExamples {
 
     public static void main(String [] args){
