@@ -15,17 +15,16 @@ import java.util.stream.Stream;
 */
 public class ReduceExample {
     public static void main(String[] args){
+
         Supplier<Stream<Integer>> supplier = () -> Stream.of(1, 2, 3, 4, 5, 6);
 
-       Optional<Integer> product = supplier.get().reduce((integer, integer2) -> integer*integer2);
+        Optional<Integer> product = supplier.get().reduce((integer, integer2) -> integer*integer2);
 
         System.out.println(product.get());
 
         Optional<Integer> addition = supplier.get().reduce((int1, int2) -> int1 + int2);
 
         System.out.println(addition.get());
-
-
 
     }
 }

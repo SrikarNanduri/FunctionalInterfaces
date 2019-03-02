@@ -21,11 +21,11 @@ public class TakeWhileExample {
     public static void main(String [] args){
 
         Supplier<Stream<Integer>> orderedStream = () -> Stream.of(1,2,3,4,5,6,7,8,9,10);
-        orderedStream.get().takeWhile(x -> x < 4).forEach(System.out::println);
+        orderedStream.get().takeWhile(x -> x < 4).forEach(System.out::println);  // 1 2 3
         // As this Stream is an Ordered, takeWhile() method returns first three elements which matches our Predicate. Here our Predicate is that “Element must be less than 4”.
 
         Supplier<Stream<Integer>> unorderedStream = () -> Stream.of(1,2,4,5,3,6,7,8,9,10);
-        unorderedStream.get().takeWhile(x -> x < 4).forEach(System.out::println);
+        unorderedStream.get().takeWhile(x -> x < 4).forEach(System.out::println); // 1 2
         // As this Stream is an Unordered, takeWhile() method returns first two elements which matches our Predicate
 
       /*That means takeWhile() returns all prefixed elements until they match Predicate condition.

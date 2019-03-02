@@ -19,13 +19,13 @@ public class DropWhileExample {
     public static void main(String [] args){
 
         Stream<Integer> orderedStream = Stream.of(1,2,3,4,5,6,7,8,9,10);
-        orderedStream.dropWhile(x -> x < 4).forEach(System.out::println);
+        orderedStream.dropWhile(x -> x < 4).forEach(System.out::println); // 4 5 6 7 8 9 10
 
         //As this Stream is an Ordered, dropWhile() method drops first three elements which matches our Predicate and returns rest of the elements into resulted Stream.
         // Here our Predicate is that “Element must be less than 4”.
 
         Stream<Integer> unorderedStream = Stream.of(1,2,4,5,3,6,7,8,9,10);
-        unorderedStream.dropWhile(x -> x < 4).forEach(System.out::println);
+        unorderedStream.dropWhile(x -> x < 4).forEach(System.out::println); // 4 5 3 6 7 8 9 10
 
         //As this Stream is an Unordered, dropWhile() method drop first two elements only which matches our Predicate and returns rest of the elements into resulted Stream.
         //
